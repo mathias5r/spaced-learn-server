@@ -1,0 +1,12 @@
+{
+  "name": "spaced-learn-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mathias5r/spaced-learn-server.git",
+  "author": "Mathias5R <mathiassilva4@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.1.0",
+    "apollo-server-express": "^2.1.0"
+  }
+}
