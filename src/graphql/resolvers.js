@@ -1,3 +1,6 @@
-const resolvers = {};
+import { mergeResolvers } from 'merge-graphql-schemas';
+import moduleResolver from './resolvers/moduleResolver';
 
-export default resolvers;
+export default mergeResolvers([
+  moduleResolver,
+]);

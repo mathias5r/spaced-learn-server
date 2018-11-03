@@ -1,0 +1,4 @@
+type Challange {
+  question: String!
+  answer: String!
+}
