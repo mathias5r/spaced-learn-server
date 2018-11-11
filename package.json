@@ -11,9 +11,11 @@
   "dependencies": {
     "apollo-server": "^2.1.0",
     "apollo-server-express": "^2.1.0",
+    "babel-polyfill": "^6.26.0",
     "express": "^4.16.4",
     "graphql": "^14.0.2",
-    "merge-graphql-schemas": "^1.5.7"
+    "merge-graphql-schemas": "^1.5.7",
+    "mongodb": "^3.1.9"
   },
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
