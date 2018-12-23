@@ -8,9 +8,13 @@ import mongodb from './database/mongo';
 const app = express();
 
 const printCollection = async () => {
-  const db = await mongodb.spaced_learn_db;
-  const collection = await db.collection('spacedlearn').find();
-  console.log(collection);
+  const db = await mongodb.spacedlearnDB;
+  const collection = await db.collection('users')
+    .find({ nome: "Mathias"})
+    .toArray((err, result) => {
+      if (err) console.log(err)
+      console.log(result);
+  });
 }
 
 printCollection();
