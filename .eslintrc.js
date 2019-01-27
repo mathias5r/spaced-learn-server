@@ -26,5 +26,9 @@ module.exports = {
             "error",
             "always"
         ]
+    },
+    "globals": {
+        "describe": 1,
+        "test": 1
     }
 };
