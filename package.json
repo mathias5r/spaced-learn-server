@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/start.js"
+    "start": "nodemon src/start.js",
+    "test": "jest"
   },
   "repository": "git@github.com:mathias5r/spaced-learn-server.git",
   "author": "Mathias5R <mathiassilva4@gmail.com>",
@@ -20,6 +21,22 @@
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
+    "eslint": "^5.12.1",
+    "jest": "^24.0.0",
+    "jest-cli": "^24.0.0",
     "nodemon": "^1.18.5"
+  },
+  "resolutions": {
+    "**/event-stream": "^4.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "html"
+    ]
   }
 }
