@@ -1,13 +1,16 @@
+import mongodb from '../../database/mongo'; 
+
+const login = async ({ email, password, credentials }) => {
+    const db = await mongodb.spacedlearnDB;
+    const user = await db.collection('users').findOne({ user: email });
+    if(user) return "User found";
+    return "User not found"
+}
+
 const loginResolver = {
   Mutation: {
-    Login: (_,{ email, password, credentials }) => {
-      console.log('Login attempt!');
-      console.log('email', email);
-      console.log('password', password);
-      console.log('credentials', credentials);
-      return "Login attempt";
-    },
+    Login: async (_,{ email, password }, {credentials}) => login({ email, password, credentials}),
   }
-}
+};
 
 export default loginResolver;
