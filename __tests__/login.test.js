@@ -22,7 +22,7 @@ const login = () => ({
 describe("Login", () => {
 	test("Get sucessfully user with right login user", async () => {
 		const response = await makeRequest(login());
-		expect(response.body.data.Login).toBe("User found");
+		expect(response.body.data.Login).toBe("Sucessfully login");
 	});
 });
 
