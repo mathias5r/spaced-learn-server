@@ -1,15 +1,13 @@
 version: '3.1'
-
 services:
-
-  spacedlearnDB:
-    image: mongo:latest
+  spaced_learn_db:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    image: mathias/spaced_learn_db
+    container_name: spaced_learn_db
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-      MONGO_INITDB_DATABASE: spacedlearn
     ports:
       - 27017:27017
     volumes:
-      - ./mongo/entrypoint:/docker-entrypoint-initdb.d
+      - ./mongo/entrypoint/:/docker-entrypoint-initdb.d/
