@@ -1,28 +1,26 @@
 import mongodb from "../../database/mongo"; 
-import crypto from "crypto";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET_KEY } from "../.././../constants";
+import { JWT_SECRET_KEY, ERRORS } from "../.././../constants";
+import { AuthenticationError } from "apollo-server-express";
+import { isCredentialsValid, generatePasswordHash, generateToken } from "../../services/login";
 
-const getPasswordHash = ({ password, salt }) => {
-	return crypto
-		.createHmac("sha256", salt)
-		.update(password)
-		.digest("hex"); 
-};
-
-const generateToken = payload => {
-	const token = jwt.sign(payload, JWT_SECRET_KEY);
-	return token;
-}; 
-
-
-const login = async ({ email, password}, { credentials } ) => {
+const login = async ({ user, password}, { credentials } ) => {
 	const db = await mongodb.spacedlearnDB;
-	console.log(credentials);
-	const user = await db.collection("users").findOne({ user: email });
-	const passwordHash = getPasswordHash({ password, salt: user.salt });
+	const userFromDB = await db.collection("users").findOne({ user });
+
+	if(!userFromDB){
+		return new AuthenticationError(ERRORS.USER_NOT_FOUND);
+	}
+
+	if(credentials && isCredentialsValid({ credentials, user})){
+		return "sucessfully_loged";
+	}
+
+	const passwordHash = generatePasswordHash({ password, salt: user.salt });
 	if(passwordHash === user.password){
-		return generateToken({ user: user.user });
+		const token = generateToken({ user: user.user });
+		console.log(jwt.verify(token, JWT_SECRET_KEY));
+		return token;
 	}
 	return "Login failed";
 };
