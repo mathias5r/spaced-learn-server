@@ -4,10 +4,11 @@ import { AuthenticationError } from "apollo-server-express";
 import { isCredentialsValid, generatePasswordHash, generateToken } from "../../services/login";
 
 const login = async ({ user, password }, { credentials } ) => {
+
 	const db = await mongodb.spacedlearnDB;
 	const result = await db.collection("users").findOne({ user });
 
-	if(!result && result.user === user){
+	if(!result){
 		return new AuthenticationError(ERRORS.USER_NOT_FOUND);
 	}
 

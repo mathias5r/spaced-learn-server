@@ -13,7 +13,7 @@ const makeRequest = async payload =>
 const login = () => ({
 	query: `mutation{ 
             Login(
-              email: "mathiassilva4@gmail.com", 
+              user: "mathias", 
               password: "12345", 
           )
         }`
