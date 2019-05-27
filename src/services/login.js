@@ -16,9 +16,8 @@ export const generateToken = payload => {
 
 
 export const isCredentialsValid = ({ credentials, user }) => {
-	const { token } = credentials;
-	if(token){
-		const payload = jwt.verify(token, JWT_SECRET_KEY);
+	if(credentials){
+		const payload = jwt.verify(credentials, JWT_SECRET_KEY);
 		if(payload.user === user){
 			return true;
 		}

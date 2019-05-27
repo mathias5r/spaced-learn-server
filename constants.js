@@ -6,5 +6,6 @@ export const MONGO_SERVER = "localhost:27017/admin";
 export const JWT_SECRET_KEY = "sp4cedle4rnj5k";
 
 export const ERRORS = {
-	USER_NOT_FOUND: "user not found",
+	USER_NOT_FOUND: "user_not_found",
+	INVALID_CREDENTIALS: "invalid_credentials",
 };
