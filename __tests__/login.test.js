@@ -10,9 +10,9 @@ const makeRequest = async payload =>
 		.set("Accept","application/json")
 		.send(payload);
 
-const login = () => ({
+const login = ({ user, password }) => ({
 	query: `mutation{ 
-            Login(user: "mathias",password: "12345"){
+            Login(user:"${user}",password:"${password}"){
 							value
 							token
 						}
@@ -33,11 +33,23 @@ describe("Login", () => {
 		const isCredentialValid =  isCredentialsValid({ credentials: token, user });
 		expect(isCredentialValid).toBe(true);
 	});
-	test("Get sucessfully user with right login user", async () => {
-		const response = await makeRequest(login());
+	test("Get sucessfully response with right user and password", async () => {
+		const response = await makeRequest(login({ user, password: "12345"}));
 		const { value, token } = response.body.data.Login;
 		expect(value).toBe("sucessfully_loged");
 		expect(token).not.toBeNull();
+	});
+	test("Get failed response with wrong password", async () => {
+		const response = await makeRequest(login({ user, password: ""}));
+		const { value, token } = response.body.data.Login;
+		expect(value).toBe("login_failed");
+		expect(token).toBeNull();
+	});
+	test("Get failed response with unexistent user", async () => {
+		const response = await makeRequest(login({ user: "", password: ""}));
+		const { message } = response.body.errors[0];
+		expect(response.body.data.Login).toBeNull();
+		expect(message).toBe("user_not_found");
 	});
 });
 
