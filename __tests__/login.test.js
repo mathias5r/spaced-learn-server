@@ -12,10 +12,10 @@ const makeRequest = async payload =>
 
 const login = () => ({
 	query: `mutation{ 
-            Login(
-              user: "mathias", 
-              password: "12345", 
-          )
+            Login(user: "mathias",password: "12345"){
+							value
+							token
+						}
         }`
 });
 
@@ -30,13 +30,14 @@ describe("Login", () => {
 		expect(passwordHash).toBe("dc95a1b91fcbc37573f38d25f408de2d55f72513e6eaae94e01816f746311b13");
 	}),
 	test("Testing isCredentialsValid", () => {
-		const credentials = { token };
-		const isCredentialValid =  isCredentialsValid({ credentials, user });
+		const isCredentialValid =  isCredentialsValid({ credentials: token, user });
 		expect(isCredentialValid).toBe(true);
 	});
-	test.skip("Get sucessfully user with right login user", async () => {
+	test("Get sucessfully user with right login user", async () => {
 		const response = await makeRequest(login());
-		expect(response.body.data.Login).toBe("Sucessfully login");
+		const { value, token } = response.body.data.Login;
+		expect(value).toBe("sucessfully_loged");
+		expect(token).not.toBeNull();
 	});
 });
 

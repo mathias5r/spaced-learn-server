@@ -6,8 +6,10 @@ const app = express();
 
 server.applyMiddleware({ app, path: "/graphql"});
 
-app.listen({ port: 8000 }, () => {
-	console.log("Apollo Server on http://localhost:8000/graphql");
-});
+if(process.env.NODE_ENV != "test"){
+	app.listen({ port: 8000 }, () => {
+		console.log("Apollo Server on http://localhost:8000/graphql");
+	});
+}
 
 export default app;

@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/start.js",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "repository": "git@github.com:mathias5r/spaced-learn-server.git",
   "author": "Mathias5R <mathiassilva4@gmail.com>",
